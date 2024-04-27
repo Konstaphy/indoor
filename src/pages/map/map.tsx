@@ -1,10 +1,23 @@
-import { IMapEngine } from "src/_engine/model/engine.types.ts"
+import { Engine } from "src/_engine/model/engine.types.ts"
 import { FC } from "react"
+import { ThreeJsEngine } from "src/_engine/model/three-js-engine.tsx"
 
 type Props = {
-  engine: IMapEngine<any>
+  engine: Engine
 }
 
 export const Map: FC<Props> = ({ engine }) => {
-  return <>{engine.renderMap({})}</>
+  if (engine === "ThreeJS") {
+    const engine = new ThreeJsEngine()
+
+    return <>{engine.renderMap({})}</>
+  }
+
+  if (engine === "Canvas") {
+    return <>Some 2D stuff</>
+  }
+
+  throw new Error(
+    "Не указан движок для карты, попробуйте перезагрузить страничку",
+  )
 }

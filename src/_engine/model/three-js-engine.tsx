@@ -6,10 +6,6 @@ type ThreeJsMapProps = {}
 export class ThreeJsEngine implements IMapEngine<ThreeJsMapProps> {
   renderMap = (props: ThreeJsMapProps) => {
     console.log(props)
-    return (
-      <div id={"canvas__container"}>
-        <ThreeJsRenderer />
-      </div>
-    )
+    return <ThreeJsRenderer />
   }
 }
