@@ -21,14 +21,14 @@ export type GeoJsonGeometry = {
 }
 
 /** Сущность */
-export type GeoJsonFeature<T = Record<string, string>> = {
+export type GeoJsonFeature<T = undefined> = {
   type: GeoJsonType.FEATURE
   geometry: GeoJsonGeometry
-  properties: T
+  properties?: T
 }
 
 /** Единый формат описания геометрия карты */
-export type GeoJsonTypes<T> = {
+export type GeoJson<T = undefined> = {
   type: GeoJsonType.FEATURE_COLLECTION
   features: GeoJsonFeature<T>[]
 }
