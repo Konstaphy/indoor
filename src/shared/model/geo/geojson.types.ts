@@ -1,8 +1,5 @@
 /** Тип объекта представляющего сущность - сущность/коллекция сущностей */
-export enum GeoJsonType {
-  FEATURE = "Feature",
-  FEATURE_COLLECTION = "FeatureCollection",
-}
+export type GeoJsonType = "Feature" | "FeatureCollection"
 
 /** Вид сущности */
 export type GeometryType =
@@ -22,13 +19,13 @@ export type GeoJsonGeometry = {
 
 /** Сущность */
 export type GeoJsonFeature<T = undefined> = {
-  type: GeoJsonType.FEATURE
+  type: "Feature"
   geometry: GeoJsonGeometry
   properties?: T
 }
 
 /** Единый формат описания геометрия карты */
 export type GeoJson<T = undefined> = {
-  type: GeoJsonType.FEATURE_COLLECTION
+  type: "FeatureCollection"
   features: GeoJsonFeature<T>[]
 }

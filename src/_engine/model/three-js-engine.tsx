@@ -3,8 +3,8 @@ import { IMapEngine } from "src/_engine/model/engine.types.ts"
 import { ThreeJsRenderer } from "src/_engine/ui/three-js-renderer/three-js-renderer.tsx"
 import { GeoJson } from "src/shared/model/geo/geojson.types.ts"
 import { css } from "emotion"
-import * as THREE from "three"
 import { MapControls as MC } from "@react-three/drei"
+import { PerspectiveCamera } from "three"
 
 type ThreeJsMapProps = { map: GeoJson }
 const canvasContainerStyles = css({
@@ -15,7 +15,7 @@ const canvasContainerStyles = css({
 export class ThreeJsEngine implements IMapEngine<ThreeJsMapProps> {
   renderMap = (props: ThreeJsMapProps) => {
     // camera conf
-    const camera = new THREE.PerspectiveCamera(
+    const camera = new PerspectiveCamera(
       60,
       window.innerWidth / window.innerHeight,
       1,

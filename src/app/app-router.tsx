@@ -1,10 +1,18 @@
 import { Route, Routes } from "react-router"
-import { Map } from "src/pages/map/map.tsx"
+import { lazy, Suspense } from "react"
+const Map = lazy(() => import("../pages/map/map.tsx"))
 
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Map engine="ThreeJS" />} />
+      <Route
+        path="/"
+        element={
+          <Suspense fallback={<>Loading...</>}>
+            <Map engine="ThreeJS" />
+          </Suspense>
+        }
+      />
     </Routes>
   )
 }
