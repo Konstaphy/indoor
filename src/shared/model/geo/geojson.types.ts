@@ -17,7 +17,7 @@ export type GeometryType =
 /** Геометрия сущности */
 export type GeoJsonGeometry = {
   type: GeometryType
-  coordinates: number[] | number[][]
+  coordinates: number[][]
 }
 
 /** Сущность */
