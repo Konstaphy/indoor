@@ -37,7 +37,7 @@ export class ThreeJsEngine implements IMapEngine<ThreeJsMapProps> {
             maxDistance={50}
             maxPolarAngle={Math.PI / 2}
           />
-          <ambientLight color={"lightyellow"} intensity={1} castShadow />
+          <ambientLight color={"white"} intensity={5} castShadow />
           <directionalLight
             intensity={0.8}
             color="purple"
@@ -45,7 +45,7 @@ export class ThreeJsEngine implements IMapEngine<ThreeJsMapProps> {
             castShadow
           />
           <directionalLight
-            intensity={1.3}
+            intensity={0.6}
             color="blue"
             position={[10, 20, -10]}
           />
