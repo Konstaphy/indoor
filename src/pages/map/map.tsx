@@ -3,6 +3,10 @@ import { FC, useEffect, useState } from "react"
 import { ThreeJsEngine } from "src/_engine/model/three-js-engine.tsx"
 import { getMockedGeoJsonSquare } from "src/shared/model/geo/geojson.ts"
 import { GeoJson } from "src/shared/model/geo/geojson.types.ts"
+import {
+  ThreeJsCameraDefault,
+  ThreeJsCameraOrto,
+} from "src/_engine/model/camera-configuration.ts"
 
 type Props = {
   engine: Engine
@@ -20,7 +24,13 @@ const Map: FC<Props> = ({ engine }) => {
   }
 
   if (engine === "ThreeJS") {
-    const engine = new ThreeJsEngine()
+    const engine = new ThreeJsEngine(ThreeJsCameraDefault)
+
+    return <>{engine.renderMap({ map })}</>
+  }
+
+  if (engine === "ThreeJSOrto") {
+    const engine = new ThreeJsEngine(ThreeJsCameraOrto)
 
     return <>{engine.renderMap({ map })}</>
   }

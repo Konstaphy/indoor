@@ -13,6 +13,14 @@ export const AppRouter = () => {
           </Suspense>
         }
       />
+      <Route
+        path="/orto"
+        element={
+          <Suspense fallback={<>Loading...</>}>
+            <Map engine="ThreeJSOrto" />
+          </Suspense>
+        }
+      />
     </Routes>
   )
 }

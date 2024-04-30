@@ -4,7 +4,7 @@ import { ThreeJsRenderer } from "src/_engine/ui/three-js-renderer/three-js-rende
 import { GeoJson } from "src/shared/model/geo/geojson.types.ts"
 import { css } from "emotion"
 import { MapControls as MC } from "@react-three/drei"
-import { PerspectiveCamera } from "three"
+import { OrthographicCamera, PerspectiveCamera } from "three"
 
 type ThreeJsMapProps = { map: GeoJson }
 const canvasContainerStyles = css({
@@ -13,23 +13,20 @@ const canvasContainerStyles = css({
 })
 
 export class ThreeJsEngine implements IMapEngine<ThreeJsMapProps> {
-  renderMap = (props: ThreeJsMapProps) => {
-    // camera conf
-    const camera = new PerspectiveCamera(
-      60,
-      window.innerWidth / window.innerHeight,
-      1,
-      10000,
-    )
-    camera.position.set(0, 90, 220)
-    camera.lookAt(0, 0, 0)
+  private camera: OrthographicCamera | PerspectiveCamera
 
+  constructor(camera: OrthographicCamera | PerspectiveCamera) {
+    this.camera = camera
+  }
+
+  renderMap = (props: ThreeJsMapProps) => {
     return (
       <div className={canvasContainerStyles}>
-        <Canvas camera={camera}>
+        <Canvas camera={this.camera}>
           <MC
-            camera={camera}
+            camera={this.camera}
             enableDamping
+            enableRotate={this.camera instanceof PerspectiveCamera}
             zoomToCursor
             dampingFactor={0.05}
             screenSpacePanning={false}

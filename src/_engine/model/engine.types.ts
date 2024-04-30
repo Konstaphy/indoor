@@ -4,4 +4,4 @@ export interface IMapEngine<MapProps> {
   renderMap: (props: MapProps) => ReactElement
 }
 
-export type Engine = "ThreeJS" | "Canvas"
+export type Engine = "ThreeJS" | "ThreeJSOrto" | "Canvas"
