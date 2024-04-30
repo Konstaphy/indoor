@@ -2,10 +2,10 @@ import { GeoJson } from "src/shared/model/geo/geojson.types.ts"
 import { getPolygonsFromGeoJson } from "src/shared/model/geo/geojson.ts"
 import { useThree } from "@react-three/fiber"
 import { useEffect } from "react"
-import { PolygonFeatureBox } from "src/_engine/ui/three-js-renderer/polygon-feature-box.tsx"
+import { PolygonFeature } from "src/_engine/ui/three-js-renderer/features/polygon-feature.tsx"
 import { AxesHelper, Color, FogExp2 } from "three"
 import { ActiveElementProvider } from "src/_engine/ui/three-js-renderer/context/active-element-context.tsx"
-import { FloorFeature } from "src/_engine/ui/three-js-renderer/floor-feature.tsx"
+import { FloorFeature } from "src/_engine/ui/three-js-renderer/features/floor-feature.tsx"
 
 type Props = { map: GeoJson }
 
@@ -30,8 +30,8 @@ export const ThreeJsRenderer = ({ map }: Props): JSX.Element => {
 
   return (
     <ActiveElementProvider>
-      {polygonsList.map((_polygon, index) => (
-        <PolygonFeatureBox polygon={_polygon} key={index} />
+      {polygonsList.map((polygon, index) => (
+        <PolygonFeature polygon={polygon} key={index} />
       ))}
       <FloorFeature polygonsList={polygonsList} />
     </ActiveElementProvider>

@@ -24,13 +24,13 @@ const Map: FC<Props> = ({ engine }) => {
   }
 
   if (engine === "ThreeJS") {
-    const engine = new ThreeJsEngine(ThreeJsCameraDefault)
+    const engine = new ThreeJsEngine({ camera: ThreeJsCameraDefault })
 
     return <>{engine.renderMap({ map })}</>
   }
 
   if (engine === "ThreeJSOrto") {
-    const engine = new ThreeJsEngine(ThreeJsCameraOrto)
+    const engine = new ThreeJsEngine({ camera: ThreeJsCameraOrto })
 
     return <>{engine.renderMap({ map })}</>
   }

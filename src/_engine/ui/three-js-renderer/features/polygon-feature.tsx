@@ -9,10 +9,12 @@ import {
   MeshLambertMaterial,
   Raycaster,
   Shape,
+  Vector2,
 } from "three"
 import { useThree } from "@react-three/fiber"
 import { useContext, useEffect, useState } from "react"
 import { ActiveElementContext } from "src/_engine/ui/three-js-renderer/context/active-element-context.tsx"
+import { ContextActionsContext } from "src/_engine/lib/context-actions/context/context-actions-context.tsx"
 
 type Props = {
   polygon: GeoJsonFeature
@@ -27,11 +29,10 @@ const lineMaterial = new LineBasicMaterial({
 /**
  * Renders a 3D polygon feature box using Three.js.
  *
- * @param {Object} props - The properties object.
- * @param {GeoJsonFeature} props.polygon - The polygon feature to render.
+ * @param {GeoJsonFeature} polygon - The polygon feature to render.
  * @return {JSX.Element | null} The rendered polygon feature box.
  */
-export const PolygonFeatureBox = ({ polygon }: Props): JSX.Element | null => {
+export const PolygonFeature = ({ polygon }: Props): JSX.Element | null => {
   const { camera, scene } = useThree()
 
   const { activeElement, setActiveElement } = useContext(ActiveElementContext)
@@ -41,6 +42,10 @@ export const PolygonFeatureBox = ({ polygon }: Props): JSX.Element | null => {
     MeshLambertMaterial
   > | null>(null)
   const [lineObject, setLineObject] = useState<LineSegments | null>(null)
+
+  const { setContextActionsConf, contextActionsConf } = useContext(
+    ContextActionsContext,
+  )
 
   useEffect(() => {
     // creating shape
@@ -109,9 +114,24 @@ export const PolygonFeatureBox = ({ polygon }: Props): JSX.Element | null => {
 
           if (e.object.uuid === intersects[0].object.uuid) {
             setActiveElement(e.object.uuid)
-            console.log(e.object)
           }
         }}
+        onDoubleClick={(e) => {
+          const raycaster = new Raycaster()
+          raycaster.setFromCamera(e.pointer, camera)
+          const intersects = raycaster
+            .intersectObjects(scene.children)
+            .filter((ints) => ints.object.type === "Mesh")
+          if (contextActionsConf) {
+            setContextActionsConf(null)
+          } else {
+            setContextActionsConf({
+              cursorPos: new Vector2(e.clientX, e.clientY),
+              text: polygon.properties?.name || intersects[0].object.uuid,
+            })
+          }
+        }}
+        userData={polygon.properties}
         key={polygon.geometry.type}
       >
         <primitive object={meshObject} />
