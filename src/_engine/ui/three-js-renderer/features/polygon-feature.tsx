@@ -102,7 +102,7 @@ export const PolygonFeature = ({ polygon }: Props): JSX.Element | null => {
   }
 
   return (
-    <>
+    <group>
       <mesh
         onClick={(e) => {
           const raycaster = new Raycaster()
@@ -127,16 +127,16 @@ export const PolygonFeature = ({ polygon }: Props): JSX.Element | null => {
           } else {
             setContextActionsConf({
               cursorPos: new Vector2(e.clientX, e.clientY),
-              text: polygon.properties?.name || intersects[0].object.uuid,
+              text:
+                intersects[0].object.userData.name || intersects[0].object.uuid,
             })
           }
         }}
-        userData={polygon.properties}
         key={polygon.geometry.type}
       >
-        <primitive object={meshObject} />
+        <primitive object={meshObject} userData={polygon.properties} />
       </mesh>
       <primitive object={lineObject} />
-    </>
+    </group>
   )
 }
