@@ -1,20 +1,10 @@
-import { GeoJson, GeoJsonType } from "src/shared/model/geo/geojson.types.ts"
+import { GeoJson, GeoJsonFeature } from "src/shared/model/geo/geojson.types.ts"
+import json from "./mock-geojson.json"
 
 // FOR TESTING ONLY
-export const MockedGeoJsonSquare: GeoJson = {
-  type: GeoJsonType.FEATURE_COLLECTION,
-  features: [
-    {
-      type: GeoJsonType.FEATURE,
-      geometry: {
-        type: "Polygon",
-        coordinates: [
-          [0, 1],
-          [1, 1],
-          [1, 0],
-          [0, 0],
-        ],
-      },
-    },
-  ],
+export const getMockedGeoJsonSquare = async (): Promise<GeoJson> =>
+  json as GeoJson
+
+export const getPolygonsFromGeoJson = (featuresList: GeoJsonFeature[]) => {
+  return featuresList.filter((feature) => feature.geometry.type === "Polygon")
 }
